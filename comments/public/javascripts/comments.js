@@ -28,4 +28,18 @@ $(document).ready(function(){
         $("#comments").html(everything);
       })
     })
+
+   $("#search").click(function() {
+      $.getJSON('search?q='+$("#searchTerm").val(), function(data) {
+        console.log(data);
+        var everything = "<ul>";
+        for(var comment in data) {
+          com = data[comment];
+          everything += "<li>Name: " + com.Name + " -- Comment: " + com.Comment + "</li>";
+        }
+        everything += "</ul>";
+        $("#similar").html(everything);
+      })
+    })
+
 });

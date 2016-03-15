@@ -32,6 +32,22 @@ router.get('/comment', function(req, res, next) {
   })
 });
 
+/* GET comments from database starting with query */
+router.get('/search', function(req, res, next) {
+  console.log("In the search route");
+  console.log("q = " + req.query.q);
+  var q = req.query.q;
+  Comment.find({ 'Name': new RegExp(req.query.q, 'i')},function(err,commentList) { //Calls the find() method on your database
+    if (err) return console.error(err); //If there's an error, print it out
+    else {
+      console.log(commentList); //Otherwise console log the comments you found
+      
+      
+    }
+    res.json(commentList);
+  })
+});
+
 /* Set up mongoose in order to connect to mongo database */
 var mongoose = require('mongoose'); //Adds mongoose as a usable dependency
 
